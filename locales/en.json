@@ -1,0 +1,39 @@
+{
+  "siteName": "Muftiat",
+  "nav": {
+    "home": "Home",
+    "science": "Science",
+    "education": "Education",
+    "articles": "Articles",
+    "teachers": "For Teachers",
+    "students": "For Students",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "hero": {
+    "eyebrow": "A new era of learning",
+    "title": "Knowledge is the power that opens the path to the future",
+    "subtitle": "Learn science, share knowledge, and transform the future.",
+    "primary": "Start learning",
+    "secondary": "View articles",
+    "stat1": "500+ learning resources",
+    "stat2": "10K+ readers",
+    "stat3": "100+ scientific articles"
+  },
+  "sections": {
+    "disciplines": "Key disciplines",
+    "science": "Science & news",
+    "articles": "Articles",
+    "teachers": "For teachers",
+    "students": "For students",
+    "interactive": "Interactive learning",
+    "stats": "Statistics"
+  },
+  "common": {
+    "readMore": "Read more",
+    "search": "Search",
+    "download": "Download",
+    "theme": "Theme",
+    "footerText": "Education platform for knowledge, science and enlightenment."
+  }
+}

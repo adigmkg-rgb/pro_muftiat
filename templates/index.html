@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ky">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muftiat | Билим — келечекке жол ачкан күч</title>
+    <meta name="description" content="Muftiat — билим, илим, агартуучу материалдар жана заманбап билим берүү платформасы." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body class="theme-light">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="/" class="brand" aria-label="Муфтиат логотипи">
+          <span class="brand-mark">M</span>
+          <span class="brand-text">Muftiat</span>
+        </a>
+        <nav class="main-nav" aria-label="Главное меню">
+          {% for item in nav_items %}
+            {% set label = item['label_ky'] or item['label_ru'] or item['label_en'] or 'Menu' %}
+            <a href="{{ item['url'] or '#' }}">{{ label }}</a>
+          {% endfor %}
+        </nav>
+        <div class="nav-actions">
+          <label class="search-box">
+            <span class="search-icon">⌕</span>
+            <input type="search" placeholder="Издөө..." />
+          </label>
+          <button class="theme-toggle" aria-label="Теманы өзгөртүү">☀</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-spacing">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <span class="eyebrow">Билимдин жаңы доору</span>
+            <h1>Билим — келечекке жол ачкан күч</h1>
+            <p>Илимди үйрөн, билимди бөлүш, келечекти өзгөрт.</p>
+            <div class="cta-row">
+              <a href="#articles" class="btn btn-primary">Билимди баштоо</a>
+              <a href="#articles" class="btn btn-secondary">Макалаларды көрүү</a>
+            </div>
+            <div class="hero-meta">
+              <div><strong>500+</strong><span>билим берүү материалы</span></div>
+              <div><strong>10K+</strong><span>окурман</span></div>
+              <div><strong>100+</strong><span>илимий макала</span></div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="hero-panel">
+              <div class="mini-card"><span>Инновация</span><strong>AI & Technology</strong></div>
+              <div class="dashboard-card">
+                <div class="chart-bars"><span></span><span></span><span></span><span></span><span></span></div>
+                <div class="chart-info"><p>Билимдин өсүү көрсөткүчү</p><strong>+84%</strong></div>
+              </div>
+              <div class="mini-card"><span>Онлайн курстар</span><strong>12 000+ сабак</strong></div>
+            </div>
+            <div class="floating-badge badge-one">Технология</div>
+            <div class="floating-badge badge-two">Илим</div>
+            <div class="floating-badge badge-three">Китеп</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="disciplines" class="section-spacing">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Билим тармактары</span>
+            <h2>Билим саласындағы негизги дисциплиналар</h2>
+          </div>
+          <div class="category-grid">
+            <article class="category-card reveal"><div class="icon-wrap">∑</div><h3>Математика</h3><p>Логика, эсеп, аналитика жана ойлонуу.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">⚛</div><h3>Физика</h3><p>Дүйнөнүн мыйзамдарын түшүнүү жана эксперимент.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">⚗</div><h3>Химия</h3><p>Материалдардын жана реакцияларды түшүнүү.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">🧬</div><h3>Биология</h3><p>Жашоо жана генетика.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">⌨</div><h3>Информатика</h3><p>Алгоритмдер, IT жана цифралык компетенция.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">🏛</div><h3>Тарых</h3><p>Өткенди түшүнүү жана маданият.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">✒</div><h3>Кыргыз тили</h3><p>Тил, адабият жана жазуу маданияты.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">A</div><h3>Англис тили</h3><p>Халыкаралык байланыш жана билим.</p></article>
+            <article class="category-card reveal"><div class="icon-wrap">🤖</div><h3>Технология жана AI</h3><p>Заманбап билим берүүнүн негизги багыты.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-spacing">
+        <div class="container science-grid">
+          <div class="science-copy reveal">
+            <span class="eyebrow">Илим жана жаңылыктар</span>
+            <h2>Дүйнөдөгү жаңы изилдөөлөр, фактылар жана инновациялар</h2>
+            <p>Биз актуалдуу, сапаттуу жана жогорку деңгээлдеги маалыматтарды окуучуларга, студенттерге жана мугалимдерге жеткиребиз.</p>
+            <ul class="science-list">
+              <li>AI жана автоматташтыруу менен билим берүүнүн жаңы ыкмалары</li>
+              <li>STEM жана практикалык изилдөөлөр</li>
+              <li>Жаштар үчүн жаңылыктар жана инновациялар</li>
+            </ul>
+          </div>
+          <div class="science-cards reveal">
+            <article class="news-card highlight"><span class="tag">Изилдөө</span><h3>AI жардамында окуу процессинин натыйжалуулугу жогорулады</h3><p>Жаңы студиялык изилдөөлөр бул багыттагы өсүштү көрсөттү.</p></article>
+            <article class="news-card"><span class="tag">Факт</span><h3>Китеп окуу критикалык ой жүгүртүүнүн негизи</h3><p>Китеп менен окуу практикалык жана интеллектуалдык өсүштү камсыздайт.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="articles" class="articles section-spacing">
+        <div class="container">
+          <div class="section-heading reveal article-header-row">
+            <div>
+              <span class="eyebrow">Макалалар</span>
+              <h2>Акыркы жана популярдуу материалдар</h2>
+            </div>
+          </div>
+
+          <div class="article-grid">
+            {% for article in articles %}
+            <article class="article-card reveal">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Article" />
+              <div class="article-content">
+                <span class="article-tag">Илим</span>
+                <h3>{{ article['title_ky'] or article['title_en'] or 'Макала' }}</h3>
+                <p>{{ article['summary_ky'] or article['summary_en'] or article['content_ky'][:140] }}</p>
+                <div class="article-meta">
+                  <span>{{ article['author'] or 'Muftiat' }}</span>
+                  <span>{{ article['created_at'][:10] if article['created_at'] else 'Кийинки' }}</span>
+                </div>
+                <a href="/article/{{ article['id'] }}" class="read-more-link">Көбүрөөк окуу →</a>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section id="teachers" class="section-spacing">
+        <div class="container resource-layout">
+          <div class="resource-panel reveal">
+            <div class="panel-header"><span class="eyebrow">Мугалимдер үчүн</span><h2>Сабак түзүү, презентация жана методикалык жардам</h2></div>
+            <div class="resource-list">
+              <article class="resource-item"><span class="bullet">01</span><div><h3>Сабак пландары</h3><p>Кыска, таза жана практикалык сценарийлер.</p></div></article>
+              <article class="resource-item"><span class="bullet">02</span><div><h3>Презентациялар</h3><p>Визуалдык, түшүнүктүү материалдар.</p></div></article>
+              <article class="resource-item"><span class="bullet">03</span><div><h3>Тесттер</h3><p>Окуучулардын билим деңгээлин текшерүү.</p></div></article>
+            </div>
+          </div>
+          <div id="students" class="resource-panel reveal">
+            <div class="panel-header"><span class="eyebrow">Окуучулар үчүн</span><h2>Онлайн сабактар, тесттер жана интерактивдүү тапшырмалар</h2></div>
+            <div class="resource-list">
+              <article class="resource-item"><span class="bullet">01</span><div><h3>Онлайн сабактар</h3><p>Күнүмдүк темалар, видеолекциялар жана практика.</p></div></article>
+              <article class="resource-item"><span class="bullet">02</span><div><h3>Тесттер</h3><p>Билимди бышыктоо жана мониторинг.</p></div></article>
+              <article class="resource-item"><span class="bullet">03</span><div><h3>Олимпиада материалдары</h3><p>Күчтүү дайындык жана логика.</p></div></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section-spacing">
+        <div class="container contact-wrap">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Байланыш</span>
+            <h2>Суроо, сунуш же кызматташуу үчүн жазылыңыз</h2>
+          </div>
+          <form id="contact-form" class="contact-form reveal">
+            <label>Атыңыз<input type="text" id="name" name="name" placeholder="Атыңыз" /></label>
+            <label>Email<input type="email" id="email" name="email" placeholder="email@example.com" /></label>
+            <label>Суроо<textarea id="message" name="message" placeholder="Сизге кандай жардам керек?"></textarea></label>
+            <button class="btn btn-primary" type="submit">Жөнөтүү</button>
+            <p id="form-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="/" class="brand footer-brand"><span class="brand-mark">M</span><span class="brand-text">Muftiat</span></a>
+          <p>Билим, илим жана агартуу үчүн билим берүү платформасы.</p>
+        </div>
+        <div>
+          <h3>Сайт тууралуу</h3>
+          <ul><li><a href="/">Башкы бет</a></li><li><a href="#articles">Макалалар</a></li><li><a href="/admin">Admin</a></li></ul>
+        </div>
+        <div>
+          <h3>Байланыш</h3>
+          <ul><li><a href="mailto:info@muftiat.kg">info@muftiat.kg</a></li><li><a href="tel:+996555000000">+996 (555) 000 000</a></li><li>Бишкек, Кыргыз Республикасы</li></ul>
+        </div>
+        <div>
+          <h3>Социалдык тармактар</h3>
+          <ul><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container footer-bottom-inner"><span>© 2026 Muftiat</span><span>Бардык укуктар корголгон</span></div>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

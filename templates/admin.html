@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ky">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muftiat | Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body class="admin-body">
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand"><span class="brand-mark">M</span><span>Muftiat Admin</span></div>
+        <nav class="admin-nav">
+          <a class="active" href="#">{{ admin_labels.get('sidebar_dashboard', 'Башкаруу панели') }}</a>
+          <a href="#">{{ admin_labels.get('sidebar_articles', 'Макалалар') }}</a>
+          <a href="#">{{ admin_labels.get('sidebar_categories', 'Категориялар') }}</a>
+          <a href="#">{{ admin_labels.get('sidebar_quiz', 'Викторина') }}</a>
+          <a href="#">{{ admin_labels.get('sidebar_users', 'Колдонуучулар') }}</a>
+          <a href="#">{{ admin_labels.get('sidebar_settings', 'Параметрлер') }}</a>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <header class="admin-header">
+          <div>
+            <h1>{{ admin_labels.get('header_dashboard', 'Башкаруу панели') }}</h1>
+            <p style="margin: 0; color: var(--muted);">Аккаунт: {{ username }}</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <a href="/" class="btn btn-secondary">Сайтка кайтуу</a>
+            <a href="/logout" class="btn btn-primary">Чыгуу</a>
+          </div>
+        </header>
+
+        <section class="admin-grid">
+          <div class="admin-card stat-box"><span>{{ admin_labels.get('stats_articles', 'Макалалар') }}</span><strong id="countArticles">0</strong></div>
+          <div class="admin-card stat-box"><span>{{ admin_labels.get('stats_students', 'Окуучулар') }}</span><strong>10,420</strong></div>
+          <div class="admin-card stat-box"><span>{{ admin_labels.get('stats_quiz', 'Викторина') }}</span><strong>24</strong></div>
+          <div class="admin-card stat-box"><span>{{ admin_labels.get('stats_resources', 'Ресурстар') }}</span><strong>58</strong></div>
+        </section>
+
+        <section class="admin-panel">
+          <h2>{{ admin_labels.get('article_form_title', 'Макала кошуу / жаңыртуу') }}</h2>
+          <form id="article-form" class="admin-form">
+            <input type="hidden" id="article_id" name="article_id" />
+            <div class="form-grid">
+              <label>Аталыш (KY)<input id="title_ky" name="title_ky" type="text" /></label>
+              <label>Аталыш (RU)<input id="title_ru" name="title_ru" type="text" /></label>
+              <label>Аталыш (EN)<input id="title_en" name="title_en" type="text" /></label>
+              <label>Автор<input id="author" name="author" type="text" /></label>
+            </div>
+
+            <div class="form-grid">
+              <label>Кыскача (KY)<textarea id="summary_ky" name="summary_ky"></textarea></label>
+              <label>Кыскача (RU)<textarea id="summary_ru" name="summary_ru"></textarea></label>
+              <label>Кыскача (EN)<textarea id="summary_en" name="summary_en"></textarea></label>
+              <label>Категория ID<input id="category_id" name="category_id" type="number" value="1" /></label>
+            </div>
+
+            <div class="form-grid">
+              <label>Мазмун (KY)<textarea id="content_ky" name="content_ky"></textarea></label>
+              <label>Мазмун (RU)<textarea id="content_ru" name="content_ru"></textarea></label>
+              <label>Мазмун (EN)<textarea id="content_en" name="content_en"></textarea></label>
+              <div class="submit-box">
+                <button type="submit" class="btn btn-primary">Сактоо</button>
+                <button type="button" class="btn btn-secondary" id="cancel-edit" style="margin-left: 0.5rem; display:none;">Жокко чыгаруу</button>
+              </div>
+            </div>
+            <p id="admin-status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="admin-panel" style="margin-top: 2rem;">
+          <h2>{{ admin_labels.get('articles_list_title', 'Макалалардын тизмеси') }}</h2>
+          <div class="table-wrap">
+            <table class="article-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Аталыш</th>
+                  <th>Автор</th>
+                  <th>Дата</th>
+                  <th>Иштемелер</th>
+                </tr>
+              </thead>
+              <tbody id="article-list"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-panel" style="margin-top: 2rem;">
+          <h2>{{ admin_labels.get('nav_section_title', 'Главный меню башкаруу') }}</h2>
+          <form id="nav-form" class="admin-form">
+            <input type="hidden" id="nav_id" />
+            <div class="form-grid">
+              <label>Тег (KY)<input id="label_ky" type="text" /></label>
+              <label>Тег (RU)<input id="label_ru" type="text" /></label>
+              <label>Тег (EN)<input id="label_en" type="text" /></label>
+              <label>Ссылка<input id="nav_url" type="text" value="#" /></label>
+            </div>
+            <div class="form-grid">
+              <label>Ирети<input id="sort_order" type="number" value="1" /></label>
+              <div class="submit-box">
+                <button type="submit" class="btn btn-primary">Сактоо</button>
+                <button type="button" class="btn btn-secondary" id="cancel-nav-edit" style="margin-left: 0.5rem; display:none;">Жокко чыгаруу</button>
+              </div>
+            </div>
+            <p id="nav-status" aria-live="polite"></p>
+          </form>
+
+          <div id="nav-list" style="margin-top: 1rem;"></div>
+        </section>
+
+        <section class="admin-panel" style="margin-top: 2rem;">
+          <h2>Заголовокторду редакциялоо</h2>
+          <form id="admin-label-form" class="admin-form">
+            <input type="hidden" id="admin_label_key" />
+            <div class="form-grid">
+              <label>Ключ<select id="label_key_select"></select></label>
+              <label>KY<input id="label_value_ky" type="text" /></label>
+              <label>RU<input id="label_value_ru" type="text" /></label>
+              <label>EN<input id="label_value_en" type="text" /></label>
+            </div>
+            <div class="submit-box">
+              <button type="submit" class="btn btn-primary">Сактоо</button>
+              <button type="button" class="btn btn-secondary" id="cancel-label-edit" style="display:none; margin-left:0.5rem;">Жокко чыгаруу</button>
+            </div>
+            <p id="admin-label-status" aria-live="polite"></p>
+          </form>
+          <div id="admin-label-list" style="margin-top: 1rem;"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

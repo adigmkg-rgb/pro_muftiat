@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ky">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muftiat | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="theme-light admin-body">
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand"><span class="brand-mark">M</span><span>Muftiat Admin</span></div>
+        <nav class="admin-nav">
+          <a class="active" href="#">Dashboard</a>
+          <a href="#">Articles</a>
+          <a href="#">Categories</a>
+          <a href="#">Quiz</a>
+          <a href="#">Users</a>
+          <a href="#">Settings</a>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <header class="admin-header">
+          <h1>Dashboard</h1>
+          <button class="btn btn-primary">+ Add article</button>
+        </header>
+
+        <section class="admin-grid">
+          <div class="admin-card stat-box"><span>Articles</span><strong>128</strong></div>
+          <div class="admin-card stat-box"><span>Readers</span><strong>10,420</strong></div>
+          <div class="admin-card stat-box"><span>Quiz</span><strong>24</strong></div>
+          <div class="admin-card stat-box"><span>Resources</span><strong>58</strong></div>
+        </section>
+
+        <section class="admin-panel">
+          <h2>Recent content</h2>
+          <table>
+            <thead>
+              <tr><th>Title</th><th>Status</th><th>Author</th><th>Date</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>AI and modern education</td><td>Published</td><td>Айгул</td><td>2026-08-05</td></tr>
+              <tr><td>STEM learning pathways</td><td>Draft</td><td>Нурсултан</td><td>2026-08-03</td></tr>
+              <tr><td>Math for everyday life</td><td>Published</td><td>Диана</td><td>2026-07-28</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="/assets/script.js"></script>
+  </body>
+</html>

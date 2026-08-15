@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ky">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muftiat | Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body class="admin-body">
+    <div class="admin-shell" style="grid-template-columns: 1fr;">
+      <main class="admin-main" style="display: grid; place-items: center; min-height: 100vh;">
+        <div class="admin-panel" style="max-width: 420px; width: 100%;">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <div class="admin-brand" style="justify-content: center; margin-bottom: 0.8rem;">
+              <span class="brand-mark">M</span><span>Muftiat Admin</span>
+            </div>
+            <h2 style="margin-bottom: 0.5rem;">Кирүү</h2>
+          </div>
+
+          {% if error %}
+            <p style="color: #b42318; margin-bottom: 1rem;">{{ error }}</p>
+          {% endif %}
+
+          <form method="POST" class="admin-form">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <label>
+                Логин
+                <input type="text" name="username" value="admin" required />
+              </label>
+              <label>
+                Пароль
+                <input type="password" name="password" required />
+              </label>
+            </div>
+            <div style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+              <a href="/" class="btn btn-secondary">Сайтка кайтуу</a>
+              <button type="submit" class="btn btn-primary">Кирүү</button>
+            </div>
+          </form>
+
+          <p style="margin-top: 1rem; color: var(--muted); font-size: 0.85rem;">
+            Дефолт логин: <strong>admin</strong><br />
+            Дефолт пароль: <strong>muftiat123</strong>
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
