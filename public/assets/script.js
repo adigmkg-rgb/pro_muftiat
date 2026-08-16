@@ -181,6 +181,32 @@ function articleDate(value) {
   return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString();
 }
 
+function navText(item, lang) {
+  return item[`label_${lang}`] || item.label_ky || item.label_ru || item.label_en || '';
+}
+
+async function loadNavigation() {
+  const navigation = document.querySelector('.main-nav');
+  if (!navigation) return;
+
+  try {
+    const response = await fetch(`${API_URL}/api/nav-items`);
+    if (!response.ok) throw new Error('Could not load navigation');
+    const items = await response.json();
+    const lang = document.documentElement.lang || 'ky';
+    navigation.replaceChildren();
+    items.forEach((item) => {
+      const link = document.createElement('a');
+      link.href = item.url || '#';
+      link.textContent = navText(item, lang);
+      navigation.append(link);
+    });
+  } catch (error) {
+    // Keep the links written in the HTML if the API is temporarily unavailable.
+    console.error(error);
+  }
+}
+
 function buildArticleCard(article, lang) {
   const link = document.createElement('a');
   link.className = 'article-card';
@@ -274,6 +300,7 @@ async function loadArticleDetail() {
 
 loadArticleLists();
 loadArticleDetail();
+loadNavigation();
 
 langButtons.forEach((button) => {
   button.addEventListener('click', () => {
