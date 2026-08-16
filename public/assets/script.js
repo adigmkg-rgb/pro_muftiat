@@ -167,6 +167,114 @@ if (nextQuestion) {
 renderQuestion();
 updateProgress();
 
+// The public site is hosted on Vercel while the Flask API is hosted on Render.
+// Keep database credentials on Render only; the browser needs only this public API URL.
+const API_URL = 'https://pro-muftiat.onrender.com';
+
+function articleText(article, field, lang) {
+  return article[`${field}_${lang}`] || article[`${field}_ky`] || article[`${field}_ru`] || article[`${field}_en`] || '';
+}
+
+function articleDate(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString();
+}
+
+function buildArticleCard(article, lang) {
+  const link = document.createElement('a');
+  link.className = 'article-card';
+  link.href = `/article-detail.html?id=${encodeURIComponent(article.id)}`;
+  link.style.textDecoration = 'none';
+  link.style.color = 'inherit';
+
+  const image = document.createElement('img');
+  image.src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80';
+  image.alt = articleText(article, 'title', lang);
+
+  const content = document.createElement('div');
+  content.className = 'article-content';
+  const tag = document.createElement('span');
+  tag.className = 'article-tag';
+  tag.textContent = 'Article';
+  const title = document.createElement('h3');
+  title.textContent = articleText(article, 'title', lang);
+  const summary = document.createElement('p');
+  summary.textContent = articleText(article, 'summary', lang);
+  const meta = document.createElement('div');
+  meta.className = 'article-meta';
+  const author = document.createElement('span');
+  author.textContent = article.author || '';
+  const createdAt = document.createElement('span');
+  createdAt.textContent = articleDate(article.created_at);
+  meta.append(author, createdAt);
+  content.append(tag, title, summary, meta);
+  link.append(image, content);
+  return link;
+}
+
+async function loadArticleLists() {
+  const listGrid = document.querySelector('.list-page-grid');
+  const homeGrid = document.querySelector('.articles .article-grid');
+  if (!listGrid && !homeGrid) return;
+
+  try {
+    const response = await fetch(`${API_URL}/api/articles`);
+    if (!response.ok) throw new Error('Could not load articles');
+    const articles = await response.json();
+    const lang = document.documentElement.lang || 'ky';
+
+    [listGrid, homeGrid].filter(Boolean).forEach((grid) => {
+      grid.replaceChildren();
+      const visibleArticles = grid === homeGrid ? articles.slice(0, 6) : articles;
+      visibleArticles.forEach((article) => grid.append(buildArticleCard(article, lang)));
+      if (!visibleArticles.length) grid.textContent = 'No articles yet.';
+    });
+  } catch (error) {
+    console.error(error);
+    [listGrid, homeGrid].filter(Boolean).forEach((grid) => {
+      grid.textContent = 'Articles are temporarily unavailable.';
+    });
+  }
+}
+
+async function loadArticleDetail() {
+  const articleElement = document.querySelector('.article-detail');
+  if (!articleElement) return;
+  const id = new URLSearchParams(window.location.search).get('id');
+  if (!id) {
+    articleElement.textContent = 'Select an article from the article list.';
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/api/articles/${encodeURIComponent(id)}`);
+    if (!response.ok) throw new Error('Could not load article');
+    const article = await response.json();
+    const lang = document.documentElement.lang || 'ky';
+    articleElement.replaceChildren();
+
+    const title = document.createElement('h1');
+    title.textContent = articleText(article, 'title', lang);
+    const meta = document.createElement('div');
+    meta.className = 'article-meta';
+    meta.textContent = [article.author, articleDate(article.created_at)].filter(Boolean).join(' · ');
+    const content = document.createElement('div');
+    articleText(article, 'content', lang).split(/\n{2,}/).filter(Boolean).forEach((paragraph) => {
+      const element = document.createElement('p');
+      element.textContent = paragraph;
+      content.append(element);
+    });
+    articleElement.append(title, meta, content);
+  } catch (error) {
+    console.error(error);
+    articleElement.textContent = 'This article is temporarily unavailable.';
+  }
+}
+
+loadArticleLists();
+loadArticleDetail();
+
 langButtons.forEach((button) => {
   button.addEventListener('click', () => {
     langButtons.forEach((item) => item.classList.toggle('active', item === button));
